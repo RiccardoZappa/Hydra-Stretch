@@ -1,0 +1,141 @@
+---
+total_semantic_labels: 133
+dynamic_labels: [0]
+invalid_labels: []
+object_labels: [39, 41, 56, 57, 59, 60, 73, 69, 71, 74] # Potted plant still a bit problematic to map
+structure_labels: [80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132]
+surface_places_labels: []
+label_names:
+  - { label: 0, name: person }
+  - { label: 1, name: bicycle }
+  - { label: 2, name: car }
+  - { label: 3, name: motorcycle }
+  - { label: 4, name: airplane }
+  - { label: 5, name: bus }
+  - { label: 6, name: train }
+  - { label: 7, name: truck }
+  - { label: 8, name: boat }
+  - { label: 9, name: traffic light }
+  - { label: 10, name: fire hydrant }
+  - { label: 11, name: stop sign }
+  - { label: 12, name: parking meter }
+  - { label: 13, name: bench }
+  - { label: 14, name: bird }
+  - { label: 15, name: cat }
+  - { label: 16, name: dog }
+  - { label: 17, name: horse }
+  - { label: 18, name: sheep }
+  - { label: 19, name: cow }
+  - { label: 20, name: elephant }
+  - { label: 21, name: bear }
+  - { label: 22, name: zebra }
+  - { label: 23, name: giraffe }
+  - { label: 24, name: backpack }
+  - { label: 25, name: umbrella }
+  - { label: 26, name: handbag }
+  - { label: 27, name: tie }
+  - { label: 28, name: suitcase }
+  - { label: 29, name: frisbee }
+  - { label: 30, name: skis }
+  - { label: 31, name: snowboard }
+  - { label: 32, name: sports ball }
+  - { label: 33, name: kite }
+  - { label: 34, name: baseball bat }
+  - { label: 35, name: baseball glove }
+  - { label: 36, name: skateboard }
+  - { label: 37, name: surfboard }
+  - { label: 38, name: tennis racket }
+  - { label: 39, name: bottle }
+  - { label: 40, name: wine glass }
+  - { label: 41, name: cup }
+  - { label: 42, name: fork }
+  - { label: 43, name: knife }
+  - { label: 44, name: spoon }
+  - { label: 45, name: bowl }
+  - { label: 46, name: banana }
+  - { label: 47, name: apple }
+  - { label: 48, name: sandwich }
+  - { label: 49, name: orange }
+  - { label: 50, name: broccoli }
+  - { label: 51, name: carrot }
+  - { label: 52, name: hot dog }
+  - { label: 53, name: pizza }
+  - { label: 54, name: donut }
+  - { label: 55, name: cake }
+  - { label: 56, name: chair }
+  - { label: 57, name: couch }
+  - { label: 58, name: potted plant }
+  - { label: 59, name: bed }
+  - { label: 60, name: dining table }
+  - { label: 61, name: toilet }
+  - { label: 62, name: tv }
+  - { label: 63, name: laptop }
+  - { label: 64, name: mouse }
+  - { label: 65, name: remote }
+  - { label: 66, name: keyboard }
+  - { label: 67, name: cell phone }
+  - { label: 68, name: microwave }
+  - { label: 69, name: oven }
+  - { label: 70, name: toaster }
+  - { label: 71, name: sink }
+  - { label: 72, name: refrigerator }
+  - { label: 73, name: book }
+  - { label: 74, name: clock }
+  - { label: 75, name: vase }
+  - { label: 76, name: scissors }
+  - { label: 77, name: teddy bear }
+  - { label: 78, name: hair drier }
+  - { label: 79, name: toothbrush }
+  - { label: 80, name: banner }
+  - { label: 81, name: blanket }
+  - { label: 82, name: bridge }
+  - { label: 83, name: cardboard }
+  - { label: 84, name: counter }
+  - { label: 85, name: curtain }
+  - { label: 86, name: door-stuff }
+  - { label: 87, name: floor-wood }
+  - { label: 88, name: flower }
+  - { label: 89, name: fruit }
+  - { label: 90, name: gravel }
+  - { label: 91, name: house }
+  - { label: 92, name: light }
+  - { label: 93, name: mirror-stuff }
+  - { label: 94, name: net }
+  - { label: 95, name: pillow }
+  - { label: 96, name: platform }
+  - { label: 97, name: playingfield }
+  - { label: 98, name: railroad }
+  - { label: 99, name: river }
+  - { label: 100, name: road }
+  - { label: 101, name: roof }
+  - { label: 102, name: sand }
+  - { label: 103, name: sea }
+  - { label: 104, name: shelf }
+  - { label: 105, name: snow }
+  - { label: 106, name: stairs }
+  - { label: 107, name: tent }
+  - { label: 108, name: towel }
+  - { label: 109, name: wall-brick }
+  - { label: 110, name: wall-stone }
+  - { label: 111, name: wall-tile }
+  - { label: 112, name: wall-wood }
+  - { label: 113, name: water-other }
+  - { label: 114, name: window-blind }
+  - { label: 115, name: window-other }
+  - { label: 116, name: tree-merged }
+  - { label: 117, name: fence-merged }
+  - { label: 118, name: ceiling-merged }
+  - { label: 119, name: sky-other-merged }
+  - { label: 120, name: cabinet-merged }
+  - { label: 121, name: table-merged }
+  - { label: 122, name: floor-other-merged }
+  - { label: 123, name: pavement-merged }
+  - { label: 124, name: mountain-merged }
+  - { label: 125, name: grass-merged }
+  - { label: 126, name: dirt-merged }
+  - { label: 127, name: paper-merged }
+  - { label: 128, name: food-other-merged }
+  - { label: 129, name: building-other-merged }
+  - { label: 130, name: rock-merged }
+  - { label: 131, name: wall-other-merged }
+  - { label: 132, name: rug-merged }

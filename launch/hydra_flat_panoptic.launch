@@ -1,0 +1,83 @@
+<!-- File: flat_panoptic.launch -->
+<!-- This launch file runs the full Hydra mapping pipeline using the Flat dataset
+     as input and your custom Mask2Former node for panoptic segmentation. -->
+<launch>
+  <!-- =================================================================== -->
+  <!-- Generic Setup -->
+  <!-- =================================================================== -->
+  <arg name="sim_time_required" default="false"/>
+  <param name="use_sim_time" value="$(arg sim_time_required)"/>
+  <arg name="dataset_name" default="flat_inst"/>
+  <arg name="dsg_output_dir" default="/home/ros/dsg_output"/>
+  <arg name="dsg_output_prefix" default="$(arg dataset_name)"/>
+  <node name="prep_output" pkg="hydra_stretch" type="prep_output.bash" output="screen" args="-n $(arg dsg_output_prefix) -d $(arg dsg_output_dir)"/>
+
+  <!-- =================================================================== -->
+  <!-- Dataset Player Node (Unchanged) -->
+  <!-- This reads the raw files and publishes ROS topics -->
+  <!-- =================================================================== -->
+  <arg name="seg_model" default="none"/>
+  <arg name="play_rate" default="1"/>
+  <arg name="data_path" default="/home/ros/bags/flat_dataset/run1"/> <!-- Make sure this path is correct -->
+  <node name="flat_data_player" pkg="hydra_stretch" type="play_flat_data.py" output="screen">
+    <param name="seg_model" value="$(arg seg_model)"/>
+    <param name="play_rate" value="$(arg play_rate)"/>
+    <param name="data_path" value="$(arg data_path)"/>
+  </node>
+
+  <!-- ADDED: New parameters specifically for your Mask2Former node. -->
+  <arg name="mask2former_model_path" default="/home/ros/models/mask2former_panoptic_tiny.onnx"/>
+  <arg name="mask2former_plugin_path" default="/home/ros/models/libmmdeploy_onnxruntime_ops.so"/>
+  <arg name="mask2former_confidence" default="0.5"/>
+  
+  <!-- ADDED: The launch configuration for your node. -->
+  <node name="mask2former_ros_node" pkg="hydra_seg_ros" type="mask2former_ros_node.py" output="screen">
+      <!-- Pass the model paths and confidence as private parameters to the node -->
+      <param name="model_path" value="$(arg mask2former_model_path)"/>
+      <param name="custom_op_path" value="$(arg mask2former_plugin_path)"/>
+      <param name="conf_threshold" value="$(arg mask2former_confidence)"/>
+      
+      <!-- Remap the node's subscribers to the topics published by the flat_data_player -->
+      <remap from="~colors" to="/flat_data_player/color/image_raw"/>
+      <remap from="~depth" to="/flat_data_player/depth/image_raw"/>
+      <remap from="~cam_info" to="/flat_data_player/depth/camera_info"/>
+  </node>
+
+  <!-- =================================================================== -->
+  <!-- STEP 2: Rewire Hydra to Listen to the Mask2Former Node -->
+  <!-- =================================================================== -->
+
+  <!-- All the Hydra configuration arguments remain the same -->
+  <arg name="use_gt_semantics" default="true"/>
+  <arg name="use_oriented_bounding_boxes" default="false"/>
+  <arg name="use_2d_places" default="true"/>
+  <arg name="robot_frame" default="depth_cam"/>
+  <arg name="sensor_frame" default="depth_cam"/>
+  <arg name="odom_frame" default="world"/>
+  <arg name="map_frame" default="world"/>
+  <arg name="enable_dsg_lcd" default="false"/>
+  <arg name="use_gt_frame" default="true"/>
+  <arg name="labelspace_dir" default="$(find hydra_stretch)/config/label_spaces"/>
+  <arg name="labelspace_name" default="flat_inst"/>
+  <arg name="labelspace_path" default="$(arg labelspace_dir)/coco_flat_panoptic_label_space.yaml"/>
+  <arg name="semantic_map_dir" default="$(find hydra_stretch)/config/flat_inst/color" if="$(arg use_gt_semantics)"/>
+  <arg name="semantic_map_path" default="$(arg semantic_map_dir)/flat_coco.csv"/>
+  <arg name="semantic_label_remap_filepath" default="$(find hydra_stretch)/config/label_remaps/coco.yaml"/>
+  <arg name="sensor_min_range" default="1.0"/>
+  <arg name="sensor_max_range" default="3.0"/>
+  <arg name="config_dir" default="$(find hydra_stretch)/config/flat_inst/hydra"/>
+  <arg name="input_config_path" default="$(find hydra_stretch)/config/flat_inst/sensor.yaml"/>
+  <arg name="debug" default="false"/>
+  <arg name="verbosity" default="0"/>
+
+  <!-- CHANGED: These two lines now point to your new node's topics -->
+  <arg name="rgb_info_topic" default="/mask2former_ros_node/camera_info"/>
+  <arg name="packet_topic" default="/mask2former_ros_node/vision_packet"/>
+  
+  <!-- The main Hydra launch call remains, but it now receives the rewired topics -->
+  <include file="$(find hydra_ros)/launch/hydra.launch" pass_all_args="true">
+    <arg name="rviz_dir" default="$(find hydra_stretch)/config/rviz"/>
+    <arg name="rviz_file" default="flat_yolo.rviz"/>
+  </include>
+
+</launch>
