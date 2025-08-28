@@ -11,13 +11,15 @@ objects:
     # Default values used for any object NOT listed below
     default:
       min_cluster_size: 40
-      cloud_downsampling: 0.1
-      matching_threshold: 0.01
+      cloud_downsampling: 0.1 # downsampling resolution of the pointclouds for the objects
+      matching_threshold: 0.01  #used for confrontation between centroid of cluster instance in the update graph function
+      max_correspondence_distance: 0.01  #used in the icp algorithm for matching point cloud, smaller value means the correspondence is stricter.
     # Override for Cup (Label 8)
     "8":
       min_cluster_size: 10
-      cloud_downsampling: 0.0001
+      cloud_downsampling: 0.0005
       matching_threshold: 0.0001
+      max_correspondence_distance: 0.001
     # Override for Bed (Label 2)
     "2":
       min_cluster_size: 40
@@ -35,7 +37,8 @@ objects:
     "6":
       min_cluster_size: 40
       cloud_downsampling: 0.005
-      matching_threshold: 0.0001
+      matching_threshold: 0.0005
+      max_correspondence_distance: 0.001
     # Override for Sofa (Label 20)
     "20":
       min_cluster_size: 40
@@ -43,7 +46,9 @@ objects:
     # Override for journal (Label 14)
     "14":
       min_cluster_size: 20
-      cloud_downsampling: 0.05
+      cloud_downsampling: 0.0005
+      matching_threshold: 0.0001
+      max_correspondence_distance: 0.001
 
   max_cluster_size: 10000
   cluster_tolerance: 0.25
